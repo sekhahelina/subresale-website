@@ -2,6 +2,7 @@
 @use "../../../_system/_styles/_material-overrides.scss";
 @use "../../../_system/_styles/_theme-material.scss" as *;
 
+
 .container {
   width: 100%;
   background-color: $white;
@@ -56,10 +57,89 @@
 
     &__course-select {
       width: 105px;
+=======
+.card {
+  cursor: pointer;
+  position: relative;
+  padding: 32px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  @include mixins.box-style(1px solid $primary, 32px, $primary);
+
+  &__header {
+    gap: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-bottom: 44px;
+  }
+
+  &__tags {
+    gap: 8px;
+    flex-wrap: wrap;
+    height: min-content;
+    @include mixins.flex(row, flex-start, flex-start);
+  }
+
+  &__tag--category {
+    width: fit-content;
+    height: fit-content;
+    padding: 6px 12px;
+    letter-spacing: -0.245px;
+    @include mixins.fonts-text($manrope-semibold, 14px, $gray);
+    @include mixins.box-style(1px solid $white, 48px, $white);
+  }
+
+  &__image-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    padding: 32px;
+    border-radius: 32px;
+    transition: height .3s cubic-bezier(.3,.1,.3,1), backdrop-filter .3s cubic-bezier(.3,.1,.3,1), bakground-color .3s cubic-bezier(.3,.1,.3,1), -webkit-backdrop-filter .3s cubic-bezier(.3,.1,.3,1);
+  }
+
+  &__price {
+    margin-bottom: 12px;
+    letter-spacing: -0.32px;
+    @include mixins.fonts-text($manrope-semibold, 16px, $gray);
+  }
+
+  &__subscription {
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+    @include mixins.fonts-text($manrope-bold, 32px, $black);
+  }
+
+  &__description {
+    opacity: 0;
+    letter-spacing: -0.32px;
+    transition: opacity .3s cubic-bezier(.3,.1,.3,1);
+    @include mixins.fonts-text($manrope-semibold, 16px, $gray);
+  }
+
+  @media (max-width: $media-xl) {
+    &__subscription {
+      letter-spacing: -1.8px;
+      @include mixins.fonts-text($manrope-bold, 24px, $black);
+>>>>>>> 0c31d39460ea037cac589d04baba18164982bcc4
     }
   }
 
   @media (max-width: $media-lg) {
+
     padding: 0 20px 0 20px;
 
     &__course-select {
@@ -68,10 +148,15 @@
 
     &__course-select {
       font-size: 14px;
+
+    &__header {
+      margin-bottom: 76px;
+
     }
   }
 
   @media (max-width: $media-md) {
+
     &__logo {
       gap: 0 10px;
     }
@@ -90,9 +175,17 @@
 
     &__course-select {
       width: 90px;
+
+    padding: 32px 20px;
+
+    &__image-wrapper {
+      width: 90px;
+      height: 90px;
+
     }
   }
 }
+
 
 .navigation {
   margin-left: 6px;
@@ -179,4 +272,14 @@
   &-link:hover {
     @include mixins.box-style(2px solid $red, 10px, transparent);
   }
+}
+
+.card:hover .card__body {
+  height: 100%;
+  background-color: $hovered;
+  backdrop-filter: blur(24px);
+}
+
+.card:hover .card__description {
+  opacity: 1;
 }
