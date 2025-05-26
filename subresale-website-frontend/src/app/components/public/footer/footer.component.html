@@ -16,7 +16,7 @@
         <div class="footer__courses-content">
           <ul class="footer__courses-list">
             <li class="footer__courses-item" *ngFor="let subscription of subscriptions">
-              <a class="footer__courses-link" [routerLink]="'/course/'+subscription.url"> {{subscription.name}} </a>
+              <a class="footer__courses-link" [routerLink]="'/subscriptions/'+subscription.url"> {{subscription.name}} </a>
             </li>
           </ul>
         </div>

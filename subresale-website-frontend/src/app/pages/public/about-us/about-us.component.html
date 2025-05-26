@@ -51,7 +51,7 @@
       </div>
 
       <div class="section3__content">
-        <div class="section3__category" *ngFor="let category of subscriptionCategories">
+        <div class="section3__category" *ngFor="let category of subscriptionCategories" [routerLink]="'/subscriptions/'+category.url">
           <h3 class="section3__category-title">{{ category.name }}</h3>
 
           <div class="section3__category-icons">

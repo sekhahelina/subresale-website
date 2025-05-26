@@ -10,10 +10,10 @@ export const routes: Routes = [
   //   path: 'course',
   //   loadChildren: () => import('./pages/public/course/course.module').then(m => m.CourseModule)
   // },
-  // {
-  //   path: 'courses',
-  //   loadChildren: () => import('./pages/public/courses/courses.module').then(m => m.CoursesModule)
-  // },
+  {
+    path: 'subscriptions',
+    loadChildren: () => import('./pages/public/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
+  },
   {
     path: 'about-us',
     loadChildren: () => import('./pages/public/about-us/about-us.module').then(m => m.AboutUsModule)
@@ -22,14 +22,14 @@ export const routes: Routes = [
   //   path: 'reviews',
   //   loadChildren: () => import('./pages/public/reviews/reviews.module').then(m => m.ReviewsModule)
   // },
-  // {
-  //   path: 'sign-in',
-  //   loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInModule)
-  // },
-  // {
-  //   path: 'register',
-  //   loadChildren: () => import('./pages/public/register/register.module').then(m => m.RegisterModule)
-  // },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/public/register/register.module').then(m => m.RegisterModule)
+  },
   // {
   //   path: 'account',
   //   loadChildren: () => import('./pages/private/account/account.module').then(m => m.AccountModule),
