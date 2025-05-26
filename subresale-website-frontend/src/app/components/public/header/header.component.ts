@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateToCategory(category: string) {
     if (category !== 'default') {
-      this.router.navigate(['/courses', category]);
+      this.router.navigate(['/subscriptions', category]);
     }
   }
 }
