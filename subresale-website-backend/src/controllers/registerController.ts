@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import User from '../models/userModel';
+/*import { Request, Response } from 'express';
+//import User from '../models/userModel';
 import { hashPassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
 
-export const register = async (req: Request, res: Response): Promise<void> => {
+/*export const register = async (req: Request, res: Response): Promise<void> => {
     try {
         const { firstName, lastName, email, phone, password } = req.body;
 
@@ -42,4 +42,4 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     } catch (error) {
         res.status(500).json({ message: 'Registration failed', error });
     }
-};
+};*/
