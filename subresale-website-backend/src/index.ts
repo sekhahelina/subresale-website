@@ -1,18 +1,28 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
-import serviceAccount from '../service_account_key.json';
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+const privateKey = process.env['FIREBASE_PRIVATE_KEY']?.replace(/\\n/g, '\n');
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-  storageBucket: 'subresalewebsite-57220.appspot.com'
+  credential: admin.credential.cert({
+    projectId: process.env['FIREBASE_PROJECT_ID']!,
+    clientEmail: process.env['FIREBASE_CLIENT_EMAIL']!,
+    privateKey: privateKey!,
+  }),
+  storageBucket: 'subresalewebsite-57220.appspot.com',
 });
 
 const db = admin.firestore();
 
 const app = express();
-const port = process.env['PORT'] || 300
+const port = process.env['PORT'] || 3000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', async (req, res) => {
   try {
@@ -23,11 +33,6 @@ app.get('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-;
-
-app.use(cors());
-app.use(express.json());
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

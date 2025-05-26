@@ -4,14 +4,22 @@ const tslib_1 = require("tslib");
 const express_1 = tslib_1.__importDefault(require("express"));
 const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
 const cors_1 = tslib_1.__importDefault(require("cors"));
-const service_account_key_json_1 = tslib_1.__importDefault(require("../service_account_key.json"));
+const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
+dotenv_1.default.config();
+const privateKey = process.env['FIREBASE_PRIVATE_KEY']?.replace(/\\n/g, '\n');
 firebase_admin_1.default.initializeApp({
-    credential: firebase_admin_1.default.credential.cert(service_account_key_json_1.default),
-    storageBucket: 'subresalewebsite-57220.appspot.com'
+    credential: firebase_admin_1.default.credential.cert({
+        projectId: process.env['FIREBASE_PROJECT_ID'],
+        clientEmail: process.env['FIREBASE_CLIENT_EMAIL'],
+        privateKey: privateKey,
+    }),
+    storageBucket: 'subresalewebsite-57220.appspot.com',
 });
 const db = firebase_admin_1.default.firestore();
 const app = (0, express_1.default)();
-const port = process.env['PORT'] || 300;
+const port = process.env['PORT'] || 3000;
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.get('/', async (req, res) => {
     try {
         const snapshot = await db.collection('users').get();
@@ -22,9 +30,6 @@ app.get('/', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-;
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
