@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
         category: 'Development',
         pricePerMonth: 29.99,
         expiresAt: '2025-12-31',
-        image: 'https://via.placeholder.com/300x200?text=Frontend',
+        image: 'assets/icons/cinema-disney-icon.png',
         description: 'Learn modern frontend frameworks like Angular, React, and Vue.'
       },
       {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         category: 'Analytics',
         pricePerMonth: 39.99,
         expiresAt: '2025-10-15',
-        image: 'https://via.placeholder.com/300x200?text=Data+Science',
+        image: 'assets/icons/music-amazon-icon.png',
         description: 'Deep dive into data analysis, machine learning and Python.'
       },
       {
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
         category: 'Design',
         pricePerMonth: 19.99,
         expiresAt: '2025-08-01',
-        image: 'https://via.placeholder.com/300x200?text=UI%2FUX',
+        image: 'assets/icons/design-adobe-icon.png',
         description: 'Master user interface and user experience design principles.'
       }
     ];

@@ -34,8 +34,8 @@
   }
 
   &__image-wrapper {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
   }
 
   &__image {
@@ -88,11 +88,6 @@
 
   @media (max-width: $media-md) {
     padding: 32px 20px;
-
-    &__image-wrapper {
-      width: 90px;
-      height: 90px;
-    }
   }
 }
 
