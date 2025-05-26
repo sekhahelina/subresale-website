@@ -4,10 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideNgxMask } from 'ngx-mask';
-
-
-
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -17,6 +14,7 @@ import { provideNgxMask } from 'ngx-mask';
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   providers: [
     provideNgxMask()
