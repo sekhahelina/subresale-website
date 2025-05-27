@@ -1,24 +1,15 @@
 import { Request, Response } from 'express';
 import { hashPassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
-import admin from 'firebase-admin';
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-  });
-}
-
-const db = admin.firestore();
+import { db } from '../index'; // ⬅️ імпорт з index.ts
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { firstName, lastName, email, phone, password } = req.body;
 
     const usersRef = db.collection('users');
-
-   
     const snapshot = await usersRef.where('email', '==', email).get();
+
     if (!snapshot.empty) {
       res.status(400).json({ message: 'User already exists' });
       return;
@@ -32,9 +23,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       email,
       phone,
       password: hashedPassword,
-      soldSubscriptions: '', 
-      boughtSubscriptions: '', 
-      createdAt: new Date().toISOString(), 
+      soldSubscriptions: '',
+      boughtSubscriptions: '',
+      createdAt: new Date().toISOString(),
     });
 
     const token = generateToken(newUserRef.id);

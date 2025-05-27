@@ -1,19 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const express_1 = require("express");
-const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
+const index_1 = require("../index"); // Імпортуємо вже ініціалізовану Firestore
 const router = (0, express_1.Router)();
-const db = firebase_admin_1.default.firestore();
 router.get('/latest', async (req, res) => {
     try {
-        const snapshot = await db.collection('subscriptions').get();
+        const snapshot = await index_1.db.collection('subscriptions').get();
         const subscriptions = [];
         const categoryMap = {};
         snapshot.forEach((doc) => {
             const data = doc.data();
             const category = data['category'];
-            if (!categoryMap[category] || categoryMap[category].createdAt.toMillis() < data['createdAt'].toMillis()) {
+            if (!categoryMap[category] ||
+                categoryMap[category].createdAt.toMillis() < data['createdAt'].toMillis()) {
                 categoryMap[category] = data;
             }
         });
@@ -29,7 +28,7 @@ router.get('/latest', async (req, res) => {
 router.get('/category/:category', async (req, res) => {
     const { category } = req.params;
     try {
-        const snapshot = await db.collection('subscriptions').where('category', '==', category).get();
+        const snapshot = await index_1.db.collection('subscriptions').where('category', '==', category).get();
         const subscriptions = [];
         snapshot.forEach((doc) => {
             subscriptions.push(doc.data());

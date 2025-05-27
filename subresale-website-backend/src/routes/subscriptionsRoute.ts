@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import admin from 'firebase-admin';
+import { db } from '../index'; // Імпортуємо вже ініціалізовану Firestore
 
 const router = Router();
-const db = admin.firestore();
 
 router.get('/latest', async (req, res) => {
   try {
@@ -14,7 +13,10 @@ router.get('/latest', async (req, res) => {
       const data = doc.data();
       const category = data['category'];
 
-      if (!categoryMap[category] || categoryMap[category].createdAt.toMillis() < data['createdAt'].toMillis()) {
+      if (
+        !categoryMap[category] ||
+        categoryMap[category].createdAt.toMillis() < data['createdAt'].toMillis()
+      ) {
         categoryMap[category] = data;
       }
     });
@@ -28,7 +30,6 @@ router.get('/latest', async (req, res) => {
     res.status(500).json({ message: 'Помилка при отриманні останніх підписок', error });
   }
 });
-
 
 router.get('/category/:category', async (req, res) => {
   const { category } = req.params;

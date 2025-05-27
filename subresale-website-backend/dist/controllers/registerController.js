@@ -1,20 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
-const tslib_1 = require("tslib");
 const hashService_1 = require("../services/hashService");
 const tokenService_1 = require("../services/tokenService");
-const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
-if (!firebase_admin_1.default.apps.length) {
-    firebase_admin_1.default.initializeApp({
-        credential: firebase_admin_1.default.credential.applicationDefault(),
-    });
-}
-const db = firebase_admin_1.default.firestore();
+const index_1 = require("../index"); // ⬅️ імпорт з index.ts
 const register = async (req, res) => {
     try {
         const { firstName, lastName, email, phone, password } = req.body;
-        const usersRef = db.collection('users');
+        const usersRef = index_1.db.collection('users');
         const snapshot = await usersRef.where('email', '==', email).get();
         if (!snapshot.empty) {
             res.status(400).json({ message: 'User already exists' });

@@ -1,15 +1,7 @@
 import { Request, Response } from 'express';
 import { comparePassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
-import admin from 'firebase-admin';
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-  });
-}
-
-const db = admin.firestore();
+import { db } from '../index'; // ⬅️ імпорт з index.ts
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -43,9 +35,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         email: user['email'],
         phone: user['phone'],
         soldSubscriptions: user['soldSubscriptions'],
-        boughtSubscriptions: user['boughtSubscriptions'], 
+        boughtSubscriptions: user['boughtSubscriptions'],
         createdAt: user['createdAt'],
-      }
+      },
     });
   } catch (error) {
     res.status(500).json({ message: 'Login failed', error });
