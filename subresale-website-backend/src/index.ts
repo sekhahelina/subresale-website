@@ -5,12 +5,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const privateKey = process.env['FIREBASE_PRIVATE_KEY']?.replace(/\\n/g, '\n');
+// Обробка багаторядкового ключа
+const privateKey = process.env['GOOGLE_PRIVATE_KEY']?.replace(/\\n/g, '\n');
 
 admin.initializeApp({
   credential: admin.credential.cert({
-    projectId: process.env['FIREBASE_PROJECT_ID']!,
-    clientEmail: process.env['FIREBASE_CLIENT_EMAIL']!,
+    projectId: process.env['GOOGLE_PROJECT_ID']!,
+    clientEmail: process.env['GOOGLE_CLIENT_EMAIL']!,
     privateKey: privateKey!,
   }),
   storageBucket: 'subresalewebsite-57220.appspot.com',
