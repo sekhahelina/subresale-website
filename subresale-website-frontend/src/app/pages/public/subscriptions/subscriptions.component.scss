@@ -1,0 +1,93 @@
+@use "../../../_system/_styles/_mixins.scss";
+@use "../../../_system/_styles/_theme-material.scss" as *;
+
+.section {
+  width: 100%;
+  padding-top: 78px;
+  margin-bottom: 80px;
+  background-color: $primary;
+
+  &__container {
+    max-width: 1216px;
+    width: 100%;
+    gap: 30px 0;
+    margin: 80px auto 0;
+    padding: 20px 40px;
+    @include mixins.flex(column, flex-start, center);
+    @include mixins.box-style(1px solid $white, 32px, $white);
+  }
+
+  &__header {
+    width: 100%;
+    @include mixins.flex(column, flex-start, center);
+
+    &-text {
+      line-height: 50px;
+      letter-spacing: -2.45px;
+      @include mixins.fonts-text($manrope-bold, 50px, $black);
+    }
+  }
+
+  &__content {
+    gap: 20px 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__pagination {
+    width: 100%;
+    gap: 0 10px;
+    margin-top: auto;
+    @include mixins.flex(row, center, flex-start);
+
+    &-button {
+      cursor: pointer;
+      padding: 5px 10px;
+      @include mixins.fonts-text($manrope-bold, 14px, $darkgray);
+      @include mixins.box-style(2px solid $primary, 8px, $primary);
+    }
+
+    &-active {
+      border-bottom: 2px solid $secondary;
+    }
+  }
+
+  @media (max-width: $media-xl) {
+    &__container {
+      padding: 20px 30px;
+    }
+
+    &__header {
+      &-text {
+        text-align: center;
+        line-height: 38px;
+        @include mixins.fonts-text($manrope-bold, 34px, $black);
+      }
+    }
+
+    &__content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: $media-lg) {
+    margin-bottom: 56px;
+
+    &__container {
+      padding: 20px 20px;
+      margin: 56px auto 0;
+    }
+
+    &__content {
+      max-width: 540px;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: $media-sm) {
+    &__container {
+      padding: 20px 10px;
+    }
+  }
+}

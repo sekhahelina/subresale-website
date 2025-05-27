@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card__header">
+    <div class="card__info">
+      <h3 class="card__subscription">{{ subscription?.title }}</h3>
+      <p class="card__price">
+        Вартість:
+        <span  class="card__price-date">
+          {{ subscription?.pricePerMonth }}
+          {{ getCurrencyWord(subscription?.pricePerMonth) }}
+        </span>
+      </p>
+      <p class="card__expires">
+        Діє до:
+        <span class="card__expires-date">
+          {{ getFormattedDate(subscription?.expiresAt) }}
+        </span>
+      </p>
+    </div>
+
+    <div class="card__image-wrapper">
+      <img src="assets/icons/social-snapchat-icon.png" alt="Snapchat logo" class="card__image">
+    </div>
+  </div>
+
+  <div class="card__description">
+    <p class="card__description-text">{{ subscription?.description }}</p>
+  </div>
+
+  <button class="card__button">Купити</button>
+</div>

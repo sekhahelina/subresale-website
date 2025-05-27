@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { HomepageCardComponent } from "../../../components/public/homepage-card/homepage-card.component";
+import { SubscriptionCardComponent } from "../../../components/public/subscription-card/subscription-card.component";
 import { FaqItemComponent } from "../../../components/public/faq-item/faq-item.component";
 import { IntroBlockComponent } from "../../../components/public/intro-block/intro-block.component";
 
@@ -11,13 +11,13 @@ import { IntroBlockComponent } from "../../../components/public/intro-block/intr
   declarations: [
     HomeComponent,
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    HomepageCardComponent,
-    FaqItemComponent,
-    IntroBlockComponent,
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        SubscriptionCardComponent,
+        FaqItemComponent,
+        IntroBlockComponent,
+    ]
 })
 
 export class HomeModule { }

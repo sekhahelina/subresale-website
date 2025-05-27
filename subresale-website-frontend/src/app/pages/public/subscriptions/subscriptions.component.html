@@ -1,1 +1,17 @@
-<p>subscriptions works!</p>
+<section class="section">
+  <div class="section__container">
+    <div class="section__header">
+      <h2 class="section__header-text">Перелік доступних підписок</h2>
+    </div>
+
+    <div class="section__content">
+      <app-subscription-card [subscription]="subscription" *ngFor="let subscription of paginatedSubscription"/>
+    </div>
+
+    <div class="section__pagination" *ngIf="totalPages > 1">
+      <button class="section__pagination-button" *ngFor="let page of [].constructor(totalPages); let i = index" [class.section__pagination-active]="currentPage === (i + 1)" (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </div>
+  </div>
+</section>
