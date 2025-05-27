@@ -1,0 +1,49 @@
+import { Router } from 'express';
+import admin from 'firebase-admin';
+
+const router = Router();
+const db = admin.firestore();
+
+router.get('/latest', async (req, res) => {
+  try {
+    const snapshot = await db.collection('subscriptions').get();
+    const subscriptions: any[] = [];
+
+    const categoryMap: Record<string, any> = {};
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const category = data['category'];
+
+      if (!categoryMap[category] || categoryMap[category].createdAt.toMillis() < data['createdAt'].toMillis()) {
+        categoryMap[category] = data;
+      }
+    });
+
+    Object.values(categoryMap).forEach((sub) => {
+      subscriptions.push(sub);
+    });
+
+    res.status(200).json(subscriptions);
+  } catch (error) {
+    res.status(500).json({ message: 'Помилка при отриманні останніх підписок', error });
+  }
+});
+
+
+router.get('/category/:category', async (req, res) => {
+  const { category } = req.params;
+  try {
+    const snapshot = await db.collection('subscriptions').where('category', '==', category).get();
+    const subscriptions: any[] = [];
+
+    snapshot.forEach((doc) => {
+      subscriptions.push(doc.data());
+    });
+
+    res.status(200).json(subscriptions);
+  } catch (error) {
+    res.status(500).json({ message: 'Помилка при отриманні підписок за категорією', error });
+  }
+});
+
+export default router;

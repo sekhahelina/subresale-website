@@ -1,45 +1,58 @@
-/*import { Request, Response } from 'express';
-//import User from '../models/userModel';
+import { Request, Response } from 'express';
 import { hashPassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
+import admin from 'firebase-admin';
 
-/*export const register = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { firstName, lastName, email, phone, password } = req.body;
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+  });
+}
 
-        const existingUser = await User.findOne({ email: email });
-        if (existingUser) {
-            res.status(400).json({ message: 'User already exists' });
-            return;
-        }
+const db = admin.firestore();
 
-        const hashed = await hashPassword(password);
+export const register = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { firstName, lastName, email, phone, password } = req.body;
 
-        const newUser = await User.create({
-            firstName,
-            lastName,
-            email,
-            phone,
-            password: hashed,
-            selectedCourses: [],
-            certification: []
-        });
+    const usersRef = db.collection('users');
 
-        const token = generateToken(newUser._id.toString());
-
-        res.status(201).json({
-            token: token,
-            user: {
-                id: newUser._id,
-                firstName,
-                lastName,
-                email,
-                phone,
-                selectedCourses: [],
-                certification: [],
-            }
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Registration failed', error });
+   
+    const snapshot = await usersRef.where('email', '==', email).get();
+    if (!snapshot.empty) {
+      res.status(400).json({ message: 'User already exists' });
+      return;
     }
-};*/
+
+    const hashedPassword = await hashPassword(password);
+
+    const newUserRef = await usersRef.add({
+      firstName,
+      lastName,
+      email,
+      phone,
+      password: hashedPassword,
+      soldSubscriptions: '', 
+      boughtSubscriptions: '', 
+      createdAt: new Date().toISOString(), 
+    });
+
+    const token = generateToken(newUserRef.id);
+
+    res.status(201).json({
+      token,
+      user: {
+        id: newUserRef.id,
+        firstName,
+        lastName,
+        email,
+        phone,
+        soldSubscriptions: '',
+        boughtSubscriptions: '',
+        createdAt: new Date().toISOString(),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Registration failed', error });
+  }
+};

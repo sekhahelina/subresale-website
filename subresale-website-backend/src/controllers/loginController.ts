@@ -1,39 +1,53 @@
-/*import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { comparePassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
+import admin from 'firebase-admin';
 
-/*export const login = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { email, password } = req.body;
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+  });
+}
 
-        const user = await User.findOne({ email: email })
+const db = admin.firestore();
 
-        if (!user) {
-            res.status(404).json({ message: 'User not found' });
-            return;
-        }
+export const login = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, password } = req.body;
 
-        const isMatch = await comparePassword(password, user.password);
-        if (!isMatch) {
-            res.status(401).json({ message: 'Incorrect password' });
-            return;
-        }
+    const usersRef = db.collection('users');
+    const snapshot = await usersRef.where('email', '==', email).get();
 
-        const token = generateToken(user._id.toString());
-
-        res.json({
-            token: token,
-            user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone,
-                selectedCourses: user.selectedCourses,
-                certification: user.certification
-            }
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Login failed', error });
+    if (snapshot.empty) {
+      res.status(404).json({ message: 'User not found' });
+      return;
     }
-};*/
+
+    const userDoc = snapshot.docs[0];
+    const user = userDoc.data();
+
+    const isMatch = await comparePassword(password, user['password']);
+    if (!isMatch) {
+      res.status(401).json({ message: 'Incorrect password' });
+      return;
+    }
+
+    const token = generateToken(userDoc.id);
+
+    res.json({
+      token,
+      user: {
+        id: userDoc.id,
+        firstName: user['firstName'],
+        lastName: user['lastName'],
+        email: user['email'],
+        phone: user['phone'],
+        soldSubscriptions: user['soldSubscriptions'],
+        boughtSubscriptions: user['boughtSubscriptions'], 
+        createdAt: user['createdAt'],
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Login failed', error });
+  }
+};

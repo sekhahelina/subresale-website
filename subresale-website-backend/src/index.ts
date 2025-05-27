@@ -27,14 +27,14 @@ const port = process.env['PORT'] || 3000;
 app.use(cors());
 app.use(express.json());
 
-// 🔓 Публічні маршрути
 app.use('/public-api', publicRoutes);
 
-// 🔐 Захищені маршрути
 app.use('/api', protectedRoutes);
 
-
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log('Server is running on http://localhost:${port}');
 });

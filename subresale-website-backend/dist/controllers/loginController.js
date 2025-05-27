@@ -1,40 +1,49 @@
 "use strict";
-/*import { Request, Response } from 'express';
-import { comparePassword } from '../services/hashService';
-import { generateToken } from '../services/tokenService';
-
-/*export const login = async (req: Request, res: Response): Promise<void> => {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.login = void 0;
+const tslib_1 = require("tslib");
+const hashService_1 = require("../services/hashService");
+const tokenService_1 = require("../services/tokenService");
+const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
+if (!firebase_admin_1.default.apps.length) {
+    firebase_admin_1.default.initializeApp({
+        credential: firebase_admin_1.default.credential.applicationDefault(),
+    });
+}
+const db = firebase_admin_1.default.firestore();
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        const user = await User.findOne({ email: email })
-
-        if (!user) {
+        const usersRef = db.collection('users');
+        const snapshot = await usersRef.where('email', '==', email).get();
+        if (snapshot.empty) {
             res.status(404).json({ message: 'User not found' });
             return;
         }
-
-        const isMatch = await comparePassword(password, user.password);
+        const userDoc = snapshot.docs[0];
+        const user = userDoc.data();
+        const isMatch = await (0, hashService_1.comparePassword)(password, user['password']);
         if (!isMatch) {
             res.status(401).json({ message: 'Incorrect password' });
             return;
         }
-
-        const token = generateToken(user._id.toString());
-
+        const token = (0, tokenService_1.generateToken)(userDoc.id);
         res.json({
-            token: token,
+            token,
             user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone,
-                selectedCourses: user.selectedCourses,
-                certification: user.certification
+                id: userDoc.id,
+                firstName: user['firstName'],
+                lastName: user['lastName'],
+                email: user['email'],
+                phone: user['phone'],
+                soldSubscriptions: user['soldSubscriptions'],
+                boughtSubscriptions: user['boughtSubscriptions'],
+                createdAt: user['createdAt'],
             }
         });
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({ message: 'Login failed', error });
     }
-};*/
+};
+exports.login = login;

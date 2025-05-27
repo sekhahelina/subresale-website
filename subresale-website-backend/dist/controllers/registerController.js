@@ -1,46 +1,53 @@
 "use strict";
-/*import { Request, Response } from 'express';
-//import User from '../models/userModel';
-import { hashPassword } from '../services/hashService';
-import { generateToken } from '../services/tokenService';
-
-/*export const register = async (req: Request, res: Response): Promise<void> => {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.register = void 0;
+const tslib_1 = require("tslib");
+const hashService_1 = require("../services/hashService");
+const tokenService_1 = require("../services/tokenService");
+const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
+if (!firebase_admin_1.default.apps.length) {
+    firebase_admin_1.default.initializeApp({
+        credential: firebase_admin_1.default.credential.applicationDefault(),
+    });
+}
+const db = firebase_admin_1.default.firestore();
+const register = async (req, res) => {
     try {
         const { firstName, lastName, email, phone, password } = req.body;
-
-        const existingUser = await User.findOne({ email: email });
-        if (existingUser) {
+        const usersRef = db.collection('users');
+        const snapshot = await usersRef.where('email', '==', email).get();
+        if (!snapshot.empty) {
             res.status(400).json({ message: 'User already exists' });
             return;
         }
-
-        const hashed = await hashPassword(password);
-
-        const newUser = await User.create({
+        const hashedPassword = await (0, hashService_1.hashPassword)(password);
+        const newUserRef = await usersRef.add({
             firstName,
             lastName,
             email,
             phone,
-            password: hashed,
-            selectedCourses: [],
-            certification: []
+            password: hashedPassword,
+            soldSubscriptions: '',
+            boughtSubscriptions: '',
+            createdAt: new Date().toISOString(),
         });
-
-        const token = generateToken(newUser._id.toString());
-
+        const token = (0, tokenService_1.generateToken)(newUserRef.id);
         res.status(201).json({
-            token: token,
+            token,
             user: {
-                id: newUser._id,
+                id: newUserRef.id,
                 firstName,
                 lastName,
                 email,
                 phone,
-                selectedCourses: [],
-                certification: [],
-            }
+                soldSubscriptions: '',
+                boughtSubscriptions: '',
+                createdAt: new Date().toISOString(),
+            },
         });
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({ message: 'Registration failed', error });
     }
-};*/
+};
+exports.register = register;
