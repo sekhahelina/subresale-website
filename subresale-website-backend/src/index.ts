@@ -3,6 +3,8 @@ import admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import publicRoutes from './routes/publicRoutes';
+import protectedRoutes from './routes/protectedRoutes';
 dotenv.config();
 
 // Обробка багаторядкового ключа
@@ -25,15 +27,13 @@ const port = process.env['PORT'] || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-  try {
-    const snapshot = await db.collection('users').get();
-    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    res.json(data);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// 🔓 Публічні маршрути
+app.use('/public-api', publicRoutes);
+
+// 🔐 Захищені маршрути
+app.use('/api', protectedRoutes);
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
