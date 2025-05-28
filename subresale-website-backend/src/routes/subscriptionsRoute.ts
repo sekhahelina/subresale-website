@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { db } from '../index'; // Імпортуємо вже ініціалізовану Firestore
+import { db } from '../index';
 
 const router = Router();
 
-router.get('/latest', async (req, res) => {
+router.get('/latest-by-categories', async (req, res) => {
   try {
     const snapshot = await db.collection('subscriptions').get();
     const subscriptions: any[] = [];

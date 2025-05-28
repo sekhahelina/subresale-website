@@ -25,18 +25,6 @@ export class UserStateService {
     );
   }
 
-  addCertificateToUser(userId: string, certificateId: string): Observable<UserResponse> {
-    return this.usersService.addCertificateToUser(userId, certificateId).pipe(
-      tap(user => this.currentUser$.next(user))
-    );
-  }
-
-  updateUserCourseList(id: string, selectedCourse: { meta: string; program: string }): Observable<UserResponse> {
-    return this.usersService.updateUserCourseList(id, selectedCourse).pipe(
-      tap(user => this.currentUser$.next(user))
-    );
-  }
-
   clearUser(): void {
     this.currentUser$.next(null);
   }

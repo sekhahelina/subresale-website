@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_1 = require("../index"); // Імпортуємо вже ініціалізовану Firestore
+const index_1 = require("../index");
 const router = (0, express_1.Router)();
-router.get('/latest', async (req, res) => {
+router.get('/latest-by-categories', async (req, res) => {
     try {
         const snapshot = await index_1.db.collection('subscriptions').get();
         const subscriptions = [];

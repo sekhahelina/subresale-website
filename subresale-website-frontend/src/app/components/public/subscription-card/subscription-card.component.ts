@@ -16,18 +16,18 @@ export class SubscriptionCardComponent {
     const lastDigit = num % 10;
 
     if (num > 10 && num < 20) {
-      return 'гривень';
+      return 'доларів';
     }
 
     if (lastDigit === 1) {
-      return 'гривня';
+      return 'долар';
     }
 
     if (lastDigit >= 2 && lastDigit <= 4) {
-      return 'гривні';
+      return 'долари';
     }
 
-    return 'гривень';
+    return 'доларів';
   }
 
   getFormattedDate(dateString: string | undefined): string {

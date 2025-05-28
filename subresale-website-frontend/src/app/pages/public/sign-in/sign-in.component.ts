@@ -85,7 +85,6 @@ export class SignInComponent {
           }, 3000);
         }
       });
-
     } else {
       this.signInForm.markAllAsTouched();
     }

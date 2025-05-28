@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { hashPassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
-import { db } from '../index'; // ⬅️ імпорт з index.ts
+import { db } from '../index';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -23,8 +23,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       email,
       phone,
       password: hashedPassword,
-      soldSubscriptions: '',
-      boughtSubscriptions: '',
+      soldSubscriptions: [],
+      boughtSubscriptions: [],
       createdAt: new Date().toISOString(),
     });
 
@@ -38,8 +38,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         lastName,
         email,
         phone,
-        soldSubscriptions: '',
-        boughtSubscriptions: '',
+        soldSubscriptions: [],
+        boughtSubscriptions: [],
         createdAt: new Date().toISOString(),
       },
     });

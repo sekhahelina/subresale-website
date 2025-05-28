@@ -2,7 +2,7 @@ export const SUBSCRIPTION: {name: string, url: string}[] = [
   {name: 'Кіно', url: 'cinema'},
   {name: 'Музика', url: 'music'},
   {name: 'Дизайн', url: 'design'},
-  {name: 'Навчання', url: 'studie'},
+  {name: 'Навчання', url: 'study'},
   {name: 'Ігри', url: 'game'},
   {name: 'Соцмережі', url: 'social'},
 ];
@@ -56,7 +56,7 @@ export const SUBSCRIPTION_CATEGORIES: {name: string, icons: {name: string, url: 
       { name: 'skillshare-icon', url: 'assets/icons/study-skillshare-icon.png' },
       { name: 'udemy-icon', url: 'assets/icons/study-udemy-icon.png' }
     ],
-    url: 'studie'
+    url: 'study'
   },
   {
     name: 'Ігри',

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
 const hashService_1 = require("../services/hashService");
 const tokenService_1 = require("../services/tokenService");
-const index_1 = require("../index"); // ⬅️ імпорт з index.ts
+const index_1 = require("../index");
 const register = async (req, res) => {
     try {
         const { firstName, lastName, email, phone, password } = req.body;
@@ -20,8 +20,8 @@ const register = async (req, res) => {
             email,
             phone,
             password: hashedPassword,
-            soldSubscriptions: '',
-            boughtSubscriptions: '',
+            soldSubscriptions: [],
+            boughtSubscriptions: [],
             createdAt: new Date().toISOString(),
         });
         const token = (0, tokenService_1.generateToken)(newUserRef.id);
@@ -33,8 +33,8 @@ const register = async (req, res) => {
                 lastName,
                 email,
                 phone,
-                soldSubscriptions: '',
-                boughtSubscriptions: '',
+                soldSubscriptions: [],
+                boughtSubscriptions: [],
                 createdAt: new Date().toISOString(),
             },
         });

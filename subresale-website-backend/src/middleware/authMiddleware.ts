@@ -1,4 +1,4 @@
-/*import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../services/tokenService';
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
@@ -18,4 +18,4 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
     } catch (error) {
         res.status(401).json({ message: 'Unauthorized: Invalid or expired token' });
     }
-};*/
+};

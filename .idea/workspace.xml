@@ -10,6 +10,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/subresale-website-frontend" />
   </component>
@@ -22,27 +29,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/maksym_yankovych/Desktop/subresale-website-project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "/Users/maksym_yankovych/Desktop/subresale-website-project/subresale-website-frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maksym_yankovych/Desktop/subresale-website-project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/maksym_yankovych/Desktop/subresale-website-project/subresale-website-backend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app/pages/public" />
-      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app/components/public" />
-      <recent name="$PROJECT_DIR$/subresale-website-frontend/src" />
-      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app" />
+      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app/pages/private" />
+      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/assets/icons" />
+      <recent name="$PROJECT_DIR$/subresale-website-backend/src/routes" />
+      <recent name="$PROJECT_DIR$/subresale-website-backend/src/services" />
+      <recent name="$PROJECT_DIR$/subresale-website-backend/src/middleware" />
     </key>
   </component>
   <component name="RunManager">
@@ -82,6 +91,9 @@
       <workItem from="1747643980884" duration="9113000" />
       <workItem from="1747999628921" duration="14876000" />
       <workItem from="1748276607411" duration="5879000" />
+      <workItem from="1748282524085" duration="24701000" />
+      <workItem from="1748377584732" duration="2343000" />
+      <workItem from="1748415325559" duration="3905000" />
     </task>
     <servers />
   </component>

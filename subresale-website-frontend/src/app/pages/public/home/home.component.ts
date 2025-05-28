@@ -23,44 +23,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const url = this.activatedRoute.snapshot.params['home'] ?? 'home';
 
-    this.loadFakeSubscriptions();
+    this.loadLatestSubscriptions();
   }
 
   loadLatestSubscriptions() {
     this.subscriptionsService.getLatestSubscriptionsByCategories().subscribe((data) => {
+      console.log(data);
       this.subscriptionList = data;
     })
-  }
-
-  loadFakeSubscriptions() {
-    this.subscriptionList = [
-      {
-        id: '1',
-        title: 'Frontend Mastery',
-        category: 'Development',
-        pricePerMonth: 29.99,
-        expiresAt: '2025-12-31',
-        image: 'assets/icons/cinema-disney-icon.png',
-        description: 'Learn modern frontend frameworks like Angular, React, and Vue.'
-      },
-      {
-        id: '2',
-        title: 'Data Science Pro',
-        category: 'Analytics',
-        pricePerMonth: 39.99,
-        expiresAt: '2025-10-15',
-        image: 'assets/icons/music-amazon-icon.png',
-        description: 'Deep dive into data analysis, machine learning and Python.'
-      },
-      {
-        id: '3',
-        title: 'UI/UX Design',
-        category: 'Design',
-        pricePerMonth: 19.99,
-        expiresAt: '2025-08-01',
-        image: 'assets/icons/design-adobe-icon.png',
-        description: 'Master user interface and user experience design principles.'
-      }
-    ];
   }
 }

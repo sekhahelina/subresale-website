@@ -18,10 +18,6 @@ export const routes: Routes = [
     path: 'about-us',
     loadChildren: () => import('./pages/public/about-us/about-us.module').then(m => m.AboutUsModule)
   },
-  // {
-  //   path: 'reviews',
-  //   loadChildren: () => import('./pages/public/reviews/reviews.module').then(m => m.ReviewsModule)
-  // },
   {
     path: 'sign-in',
     loadChildren: () => import('./pages/public/sign-in/sign-in.module').then(m => m.SignInModule)
@@ -30,14 +26,9 @@ export const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./pages/public/register/register.module').then(m => m.RegisterModule)
   },
-  // {
-  //   path: 'account',
-  //   loadChildren: () => import('./pages/private/account/account.module').then(m => m.AccountModule),
-  //   canActivate: [authGuard]
-  // },
-  // {
-  //   path: 'schedule',
-  //   loadChildren: () => import('./pages/private/schedule/schedule.module').then(m => m.ScheduleModule),
-  //   canActivate: [authGuard]
-  // }
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/private/account/account.module').then(m => m.AccountModule),
+    canActivate: [authGuard]
+  }
 ];

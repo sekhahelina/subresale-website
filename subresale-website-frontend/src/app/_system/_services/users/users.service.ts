@@ -25,12 +25,4 @@ export class UsersService {
   updateUserData(id: string, updatedData: Partial<UserResponse>): Observable<UserResponse> {
     return this.http.put<UserResponse>(`${this.api.users}/${id}`, updatedData);
   }
-
-  addCertificateToUser(userId: string, certificateId: string): Observable<UserResponse> {
-    return this.http.patch<UserResponse>(`${this.api.users}/${userId}/add-certificate`, {certificateId});
-  }
-
-  updateUserCourseList(id: string, selectedCourse: { meta: string; program: string }): Observable<UserResponse> {
-    return this.http.patch<UserResponse>(`${this.api.users}/${id}/add-course`, {courseId: selectedCourse.meta, programId: selectedCourse.program});
-  }
 }
