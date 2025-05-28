@@ -1,0 +1,39 @@
+.purchase-container {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.purchase-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.purchase-form label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.purchase-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.purchase-form button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.purchase-form button:hover {
+  background: #0056b3;
+}

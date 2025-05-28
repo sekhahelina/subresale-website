@@ -5,7 +5,10 @@ import { AccountComponent } from './account.component';
 import { AccountInfoComponent } from './account-info/account-info.component';
 
 const routes: Routes = [
-  { path: '', component: AccountComponent, children: [
+  {
+    path: '',
+    component: AccountComponent,
+    children: [
       {
         path: 'info',
         canActivate: [authGuard],

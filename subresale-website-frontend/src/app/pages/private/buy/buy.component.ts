@@ -1,22 +1,25 @@
-import {Component, Input} from '@angular/core';
-import {SubscriptionsResponse} from '../../../_system/_interfaces/subscriptions';
-import {Router, RouterLink} from '@angular/router';
-import {SubscriptionDataService} from '../../../_system/_services/subscriptionData/subscription-data.service';
+import { Component, OnInit } from '@angular/core';
+import { SubscriptionsResponse } from '../../../_system/_interfaces/subscriptions';
+import { SubscriptionDataService } from '../../../_system/_services/subscriptionData/subscription-data.service';
 
 @Component({
-  selector: 'app-subscription-card',
+  selector: 'app-buy',
   imports: [],
-  templateUrl: './subscription-card.component.html',
-  styleUrl: './subscription-card.component.scss',
+  templateUrl: './buy.component.html',
+  styleUrl: './buy.component.scss',
   standalone: true
 })
-export class SubscriptionCardComponent {
-  @Input() subscription!: SubscriptionsResponse;
+export class BuyComponent implements OnInit {
+  public subscription?: SubscriptionsResponse;
 
   constructor(
-    private router: Router,
-    private subscriptionDataService: SubscriptionDataService,
+    private subscriptionDataService: SubscriptionDataService
   ) {}
+
+  ngOnInit() {
+    this.subscription = this.subscriptionDataService.getSubscription();
+    console.log(this.subscription);
+  }
 
   getCurrencyWord(value: number | null | undefined): string {
     const num = Math.floor(value ?? 0) % 100;
@@ -48,10 +51,5 @@ export class SubscriptionCardComponent {
     const monthIndex = parseInt(month, 10) - 1;
 
     return `${day} ${months[monthIndex]} ${year}`;
-  }
-
-  goToBuy(subscription: SubscriptionsResponse) {
-    this.subscriptionDataService.setSubscription(subscription);
-    this.router.navigate(['/buy']);
   }
 }

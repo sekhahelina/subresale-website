@@ -47,11 +47,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app/components/private" />
       <recent name="$PROJECT_DIR$/subresale-website-frontend/src/app/pages/private" />
       <recent name="$PROJECT_DIR$/subresale-website-frontend/src/assets/icons" />
       <recent name="$PROJECT_DIR$/subresale-website-backend/src/routes" />
       <recent name="$PROJECT_DIR$/subresale-website-backend/src/services" />
-      <recent name="$PROJECT_DIR$/subresale-website-backend/src/middleware" />
     </key>
   </component>
   <component name="RunManager">
@@ -94,6 +94,7 @@
       <workItem from="1748282524085" duration="24701000" />
       <workItem from="1748377584732" duration="2343000" />
       <workItem from="1748415325559" duration="3905000" />
+      <workItem from="1748444065133" duration="7141000" />
     </task>
     <servers />
   </component>

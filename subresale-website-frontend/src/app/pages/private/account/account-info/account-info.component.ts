@@ -2,13 +2,21 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserResponse } from '../../../../_system/_interfaces/user';
 import { UserStateService } from '../../../../_system/_services/user-state/user-state.service';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgClass, NgIf} from '@angular/common';
+import {NgxMaskDirective} from 'ngx-mask';
 
 @Component({
   selector: 'app-account-info',
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    NgClass,
+    NgxMaskDirective
+  ],
   templateUrl: './account-info.component.html',
   styleUrl: './account-info.component.scss',
-  standalone: false,
+  standalone: true,
 })
 export class AccountInfoComponent implements OnInit, OnDestroy {
   public userId: string = '';

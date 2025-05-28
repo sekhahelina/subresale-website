@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.tokenService.jwtToken$) {
       this.tokenService.jwtToken$.subscribe(token => {
         this.isLoggedIn = !!token;
+        console.log(this.isLoggedIn);
       });
     } else {
       this.isLoggedIn = false;

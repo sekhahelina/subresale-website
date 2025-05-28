@@ -9,7 +9,7 @@ if (!JWT_SECRET) {
 }
 const generateToken = (userId) => {
     return jsonwebtoken_1.default.sign({ id: userId }, JWT_SECRET, {
-        expiresIn: '24h',
+        expiresIn: '10s',
     });
 };
 exports.generateToken = generateToken;

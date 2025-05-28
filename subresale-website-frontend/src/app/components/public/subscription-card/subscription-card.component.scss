@@ -5,6 +5,7 @@
   height: 100%;
   gap: 16px;
   padding: 24px;
+  cursor: pointer;
   border-radius: 24px;
   @include mixins.flex(column, flex-start, flex-start);
   @include mixins.box-style(1px solid $primary, 24px, $primary);

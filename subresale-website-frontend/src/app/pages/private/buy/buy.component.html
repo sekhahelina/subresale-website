@@ -1,0 +1,32 @@
+<div class="purchase-container">
+  <h2>Підписка: {{ subscription?.title }}</h2>
+
+  <form class="purchase-form">
+    <label>
+      Ім'я:
+      <input type="text" name="firstName">
+    </label>
+    <label>
+      Прізвище:
+      <input type="text" name="lastName">
+    </label>
+    <label>
+      Пошта:
+      <input type="email" name="email">
+    </label>
+    <label>
+      Назва підписки:
+      <input type="text" [value]="subscription?.title" readonly>
+    </label>
+    <label>
+      Діє до:
+      <input type="text" [value]="getFormattedDate(subscription?.expiresAt)" readonly>
+    </label>
+    <label>
+      Ціна:
+      <input type="text" [value]="subscription?.pricePerMonth + ' ' + getCurrencyWord(subscription?.pricePerMonth)" readonly>
+    </label>
+
+    <button type="submit">Підтвердити покупку</button>
+  </form>
+</div>

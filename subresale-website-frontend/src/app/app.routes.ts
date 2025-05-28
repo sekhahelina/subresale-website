@@ -6,10 +6,6 @@ export const routes: Routes = [
     path: '',
     loadChildren: () => import('./pages/public/home/home.module').then(m => m.HomeModule)
   },
-  // {
-  //   path: 'course',
-  //   loadChildren: () => import('./pages/public/course/course.module').then(m => m.CourseModule)
-  // },
   {
     path: 'subscriptions',
     loadChildren: () => import('./pages/public/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
@@ -17,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'about-us',
     loadChildren: () => import('./pages/public/about-us/about-us.module').then(m => m.AboutUsModule)
+  },
+  {
+    path: 'buy',
+    loadChildren: () => import('./pages/private/buy/buy.module').then(m => m.BuyModule)
   },
   {
     path: 'sign-in',
