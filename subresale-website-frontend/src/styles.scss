@@ -3,7 +3,7 @@
 @use "app/_system/_styles/_base";
 @use "app/_system/_styles/_theme-material";
 
-app-account-info, app-account-courses, app-account-certificates, app-account-reviews {
+app-account-info, app-account-bought-sub, app-account-sold-sub, app-account-selling-sub {
   width: 100%;
   height: 100%;
 }

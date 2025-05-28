@@ -7,7 +7,7 @@ import { UserResponse } from '../../_interfaces/user';
   providedIn: 'root'
 })
 export class UserStateService {
-  public currentUser$: BehaviorSubject<UserResponse | null> = new BehaviorSubject<UserResponse | null>(null);
+  public currentUser$: BehaviorSubject<UserResponse | undefined> = new BehaviorSubject<UserResponse | undefined>(undefined);
 
   constructor(
     private usersService: UsersService,
@@ -25,7 +25,19 @@ export class UserStateService {
     );
   }
 
+  buySubscription(userId: string, subscriptionId: string): Observable<UserResponse> {
+    return this.usersService.buySubscription(userId, subscriptionId).pipe(
+      tap(user => this.currentUser$.next(user))
+    );
+  }
+
+  addSoldSubscription(userId: string, subscriptionData: any): Observable<UserResponse> {
+    return this.usersService.addSoldSubscription(userId, subscriptionData).pipe(
+      tap(user => this.currentUser$.next(user))
+    );
+  }
+
   clearUser(): void {
-    this.currentUser$.next(null);
+    this.currentUser$.next(undefined);
   }
 }

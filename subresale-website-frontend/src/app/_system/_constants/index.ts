@@ -21,60 +21,61 @@ export const SUBSCRIPTION_CATEGORIES: {name: string, icons: {name: string, url: 
   {
     name: 'Кіно',
     icons: [
-      { name: 'disney-icon', url: 'assets/icons/cinema-disney-icon.png' },
-      { name: 'hbo-icon', url: 'assets/icons/cinema-hbo-icon.png' },
-      { name: 'netflix-icon', url: 'assets/icons/cinema-netflix-icon.png' },
-      { name: 'youtube-icon', url: 'assets/icons/cinema-youtube-icon.png' }
+      { name: 'Disney+ Premium', url: 'assets/icons/cinema-disney-icon.png' },
+      { name: 'HBO Max Standard', url: 'assets/icons/cinema-hbo-icon.png' },
+      { name: 'Netflix Premium', url: 'assets/icons/cinema-netflix-icon.png' },
+      { name: 'YouTube Premium', url: 'assets/icons/cinema-youtube-icon.png' }
     ],
     url: 'cinema'
   },
   {
     name: 'Музика',
     icons: [
-      { name: 'amazon-icon', url: 'assets/icons/music-amazon-icon.png' },
-      { name: 'apple-icon', url: 'assets/icons/music-apple-icon.png' },
-      { name: 'soundcloud-icon', url: 'assets/icons/music-soundcloud-icon.png' },
-      { name: 'spotify-icon', url: 'assets/icons/music-spotify-icon.png' }
+      { name: 'Amazon Music Unlimited', url: 'assets/icons/music-amazon-icon.png' },
+      { name: 'Apple Music Individual', url: 'assets/icons/music-apple-icon.png' },
+      { name: 'SoundCloud Go+', url: 'assets/icons/music-soundcloud-icon.png' },
+      { name: 'Spotify Premium Individual', url: 'assets/icons/music-spotify-icon.png' }
     ],
     url: 'music'
   },
   {
     name: 'Дизайн',
     icons: [
-      { name: 'adobe-icon', url: 'assets/icons/design-adobe-icon.png' },
-      { name: 'affinity-icon', url: 'assets/icons/design-affinity-icon.png' },
-      { name: 'figma-icon', url: 'assets/icons/design-figma-icon.png' },
-      { name: 'canva-icon', url: 'assets/icons/design-canva-icon.png' }
+      { name: 'Adobe Creative Cloud', url: 'assets/icons/design-adobe-icon.png' },
+      { name: 'Affinity Designer License', url: 'assets/icons/design-affinity-icon.png' },
+      { name: 'Figma Professional', url: 'assets/icons/design-figma-icon.png' },
+      { name: 'Canva Pro', url: 'assets/icons/design-canva-icon.png' }
     ],
     url: 'design'
   },
   {
     name: 'Навчання',
     icons: [
-      { name: 'coursera-icon', url: 'assets/icons/study-coursera-icon.png' },
-      { name: 'linkedin-icon', url: 'assets/icons/study-linkedin-icon.png' },
-      { name: 'skillshare-icon', url: 'assets/icons/study-skillshare-icon.png' },
-      { name: 'udemy-icon', url: 'assets/icons/study-udemy-icon.png' }
+      { name: 'Coursera Plus', url: 'assets/icons/study-coursera-icon.png' },
+      { name: 'LinkedIn Learning Premium', url: 'assets/icons/study-linkedin-icon.png' },
+      { name: 'Skillshare Premium', url: 'assets/icons/study-skillshare-icon.png' },
+      { name: 'Udemy Personal Plan', url: 'assets/icons/study-udemy-icon.png' }
     ],
     url: 'study'
   },
   {
     name: 'Ігри',
     icons: [
-      { name: 'nvidia-icon', url: 'assets/icons/game-nvidia-icon.png' },
-      { name: 'play-icon', url: 'assets/icons/game-play-icon.png' },
-      { name: 'playstation-icon', url: 'assets/icons/game-playstation-icon.png' },
-      { name: 'xbox-icon', url: 'assets/icons/game-xbox-icon.png' }
+      { name: 'NVIDIA GeForce NOW Priority', url: 'assets/icons/game-nvidia-icon.png' },
+      { name: 'Google Play Pass', url: 'assets/icons/game-play-icon.png' },
+      { name: 'PlayStation Plus Extra', url: 'assets/icons/game-playstation-icon.png' },
+      { name: 'Xbox Game Pass Ultimate', url: 'assets/icons/game-xbox-icon.png' }
     ],
     url: 'game'
   },
   {
     name: 'Соцмережі',
+
     icons: [
-      { name: 'reddit-icon', url: 'assets/icons/social-reddit-icon.png' },
-      { name: 'snapchat-icon', url: 'assets/icons/social-snapchat-icon.png' },
-      { name: 'twitter-icon', url: 'assets/icons/social-twitter-icon.png' },
-      { name: 'pinterest-icon', url: 'assets/icons/social-pinterest-icon.png' }
+      { name: 'Reddit Premium', url: 'assets/icons/social-reddit-icon.png' },
+      { name: 'Snapchat+', url: 'assets/icons/social-snapchat-icon.png' },
+      { name: 'Twitter Blue (X Premium)', url: 'assets/icons/social-twitter-icon.png' },
+      { name: 'Pinterest Premium', url: 'assets/icons/social-pinterest-icon.png' }
     ],
     url: 'social'
   }

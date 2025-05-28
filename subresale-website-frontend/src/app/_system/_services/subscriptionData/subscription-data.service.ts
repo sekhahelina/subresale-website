@@ -7,8 +7,8 @@ import { SubscriptionsResponse } from '../../_interfaces/subscriptions';
 export class SubscriptionDataService {
   private subscription: SubscriptionsResponse | undefined = undefined;
 
-  setSubscription(sub: SubscriptionsResponse) {
-    this.subscription = sub;
+  setSubscription(subscription: SubscriptionsResponse) {
+    this.subscription = subscription;
   }
 
   getSubscription(): SubscriptionsResponse | undefined {

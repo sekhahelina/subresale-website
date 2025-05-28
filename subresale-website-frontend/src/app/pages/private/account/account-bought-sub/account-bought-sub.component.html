@@ -1,0 +1,24 @@
+<div class="account__subscriptions">
+  <h2 class="account__subscriptions-heading">Куплені підписки</h2>
+
+  <div class="account__subscriptions-content" *ngIf="boughtSubscriptionsData && boughtSubscriptionsData.length > 0">
+    <div class="account__subscription" *ngFor="let subscription of boughtSubscriptionsData">
+      <div class="account__subscription-item">
+        <p class="account__subscription-title">Підписка</p>
+        <p class="account__subscription-name">{{ subscription.title }}</p>
+      </div>
+
+      <div class="account__subscription-item">
+        <p class="account__subscription-title">Вартість:</p>
+        <p class="account__subscription-name">{{ subscription.pricePerMonth }} $</p>
+      </div>
+
+      <div class="account__subscription-item">
+        <p class="account__subscription-title">Діє до:</p>
+        <p class="account__subscription-name">{{ subscription.expiresAt }}</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="account__subscriptions-text" *ngIf="userData?.boughtSubscriptions?.length === 0">На жаль, ти ще не маєш куплених підписок</p>
+</div>

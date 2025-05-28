@@ -10,9 +10,9 @@
 
       <nav class="account__nav">
         <button class="account__nav-btn" type="button" [routerLink]="['info']">Особисті дані</button>
-        <button class="account__nav-btn" type="button" >Мої курси</button>
-        <button class="account__nav-btn" type="button" >Мої сертифікати</button>
-        <button class="account__nav-btn" type="button" >Залишити відгук</button>
+        <button class="account__nav-btn" type="button" [routerLink]="['bought-subscription']">Куплені підписки</button>
+        <button class="account__nav-btn" type="button" [routerLink]="['sold-subscription']">Продані підписки</button>
+        <button class="account__nav-btn" type="button" [routerLink]="['selling-subscription']">Зробити оголошення</button>
       </nav>
 
       <div class="account__exit">

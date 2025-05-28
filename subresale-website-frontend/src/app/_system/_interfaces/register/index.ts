@@ -17,6 +17,6 @@ export interface RegisteredUser {
   lastName: string;
   email: string;
   phone: string;
-  selectedCourses: { meta: string, program: string }[],
-  certification: string[];
+  soldSubscriptions: string[],
+  boughtSubscriptions: string[];
 }

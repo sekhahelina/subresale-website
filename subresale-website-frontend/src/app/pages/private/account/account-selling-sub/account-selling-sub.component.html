@@ -1,0 +1,36 @@
+<div class="account__sell">
+  <h2 class="account__sell-heading">Додати підписку</h2>
+
+  <label>Категорія:</label>
+  <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategorySelected($event)">
+    <option value="" disabled selected>Обери категорію</option>
+    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+  </select>
+
+  <div class="account__sell-service">
+    <label>Сервіс:</label>
+    <select [(ngModel)]="selectedIconName" (ngModelChange)="onIconSelected($event)">
+      <option value="" disabled selected>Обери сервіс</option>
+      <option *ngFor="let icon of filteredIcons" [value]="icon.name">{{ icon.name }}</option>
+    </select>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="account__sell-form">
+    <label class="account__sell-label">
+      Ціна ($):
+      <input type="number" formControlName="pricePerMonth" class="account__sell-input" required />
+    </label>
+
+    <label class="account__sell-label">
+      Діє до:
+      <input type="date" formControlName="expiresAt" class="account__sell-input" required />
+    </label>
+
+    <label class="account__sell-label">
+      Опис:
+      <textarea formControlName="description" class="account__sell-input" rows="3"></textarea>
+    </label>
+
+    <button type="submit" class="account__sell-btn" [disabled]="form.invalid">Підтвердити</button>
+  </form>
+</div>

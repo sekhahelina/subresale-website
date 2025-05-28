@@ -5,7 +5,10 @@ const index_1 = require("../index");
 const router = (0, express_1.Router)();
 router.get('/latest-by-categories', async (req, res) => {
     try {
-        const snapshot = await index_1.db.collection('subscriptions').get();
+        const snapshot = await index_1.db
+            .collection('subscriptions')
+            .where('isSold', '==', false)
+            .get();
         const subscriptions = [];
         const categoryMap = {};
         snapshot.forEach((doc) => {
@@ -28,10 +31,14 @@ router.get('/latest-by-categories', async (req, res) => {
 router.get('/category/:category', async (req, res) => {
     const { category } = req.params;
     try {
-        const snapshot = await index_1.db.collection('subscriptions').where('category', '==', category).get();
+        const snapshot = await index_1.db
+            .collection('subscriptions')
+            .where('category', '==', category)
+            .where('isSold', '==', false)
+            .get();
         const subscriptions = [];
         snapshot.forEach((doc) => {
-            subscriptions.push(doc.data());
+            subscriptions.push({ id: doc.id, ...doc.data() });
         });
         res.status(200).json(subscriptions);
     }

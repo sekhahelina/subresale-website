@@ -5,7 +5,10 @@ const router = Router();
 
 router.get('/latest-by-categories', async (req, res) => {
   try {
-    const snapshot = await db.collection('subscriptions').get();
+    const snapshot = await db
+        .collection('subscriptions')
+        .where('isSold', '==', false)
+        .get();
     const subscriptions: any[] = [];
 
     const categoryMap: Record<string, any> = {};
@@ -34,11 +37,16 @@ router.get('/latest-by-categories', async (req, res) => {
 router.get('/category/:category', async (req, res) => {
   const { category } = req.params;
   try {
-    const snapshot = await db.collection('subscriptions').where('category', '==', category).get();
+    const snapshot = await db
+        .collection('subscriptions')
+        .where('category', '==', category)
+        .where('isSold', '==', false)
+        .get();
+
     const subscriptions: any[] = [];
 
     snapshot.forEach((doc) => {
-      subscriptions.push(doc.data());
+      subscriptions.push({ id: doc.id, ...doc.data() });
     });
 
     res.status(200).json(subscriptions);

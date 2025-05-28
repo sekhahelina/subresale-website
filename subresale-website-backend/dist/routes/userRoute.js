@@ -6,6 +6,7 @@ const firebase_admin_1 = tslib_1.__importDefault(require("firebase-admin"));
 const router = express_1.default.Router();
 const db = firebase_admin_1.default.firestore();
 const usersCollection = db.collection('users');
+const subscriptionsCollection = db.collection('subscriptions');
 function formatUser(doc) {
     const user = doc.data();
     if (!user)
@@ -57,7 +58,7 @@ router.put('/:id', async (req, res) => {
         return res.status(500).json({ message: 'Server error', error });
     }
 });
-router.patch('/:id/add-bought-subscription', async (req, res) => {
+router.patch('/:id/buy-subscription', async (req, res) => {
     const { id } = req.params;
     const { subscriptionId } = req.body;
     if (!subscriptionId) {
@@ -65,39 +66,68 @@ router.patch('/:id/add-bought-subscription', async (req, res) => {
     }
     try {
         const userRef = usersCollection.doc(id);
-        const doc = await userRef.get();
-        if (!doc.exists) {
+        const subscriptionRef = subscriptionsCollection.doc(subscriptionId);
+        const [userSnap, subscriptionSnap] = await Promise.all([
+            userRef.get(),
+            subscriptionRef.get()
+        ]);
+        if (!userSnap.exists) {
             return res.status(404).json({ message: 'User not found' });
         }
+        if (!subscriptionSnap.exists) {
+            return res.status(404).json({ message: 'Subscription not found' });
+        }
+        const subscriptionData = subscriptionSnap.data();
+        if (!subscriptionData) {
+            return res.status(404).json({ message: 'Subscription data not found' });
+        }
+        if (subscriptionData['isSold']) {
+            return res.status(400).json({ message: 'Subscription already sold' });
+        }
+        await subscriptionRef.update({ isSold: true });
         await userRef.update({
-            boughtSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayUnion(subscriptionId),
+            boughtSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayUnion(subscriptionId)
         });
-        const updatedDoc = await userRef.get();
-        return res.json(formatUser(updatedDoc));
+        const updatedUserDoc = await userRef.get();
+        return res.json(formatUser(updatedUserDoc));
     }
     catch (error) {
+        console.error("Buy subscription error:", error);
         return res.status(500).json({ message: 'Server error', error });
     }
 });
 router.patch('/:id/add-sold-subscription', async (req, res) => {
     const { id } = req.params;
-    const { subscriptionId } = req.body;
-    if (!subscriptionId) {
-        return res.status(400).json({ message: 'Missing subscriptionId' });
+    const { title, category, description, expiresAt, image, pricePerMonth } = req.body;
+    if (!title || !category || !description || !expiresAt || !image || !pricePerMonth) {
+        return res.status(400).json({ message: 'Missing required fields' });
     }
     try {
         const userRef = usersCollection.doc(id);
-        const doc = await userRef.get();
-        if (!doc.exists) {
+        const userDoc = await userRef.get();
+        if (!userDoc.exists) {
             return res.status(404).json({ message: 'User not found' });
         }
+        const newSubscription = {
+            title,
+            category,
+            description,
+            expiresAt,
+            image,
+            pricePerMonth: pricePerMonth.toString(), // Зберігаємо як рядок (як у твоєму прикладі)
+            createdAt: firebase_admin_1.default.firestore.FieldValue.serverTimestamp(),
+            isSold: false
+        };
+        const newSubRef = await subscriptionsCollection.add(newSubscription);
+        // Додаємо ID нової підписки у soldSubscriptions користувача
         await userRef.update({
-            soldSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayUnion(subscriptionId),
+            soldSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayUnion(newSubRef.id)
         });
-        const updatedDoc = await userRef.get();
-        return res.json(formatUser(updatedDoc));
+        const updatedUserDoc = await userRef.get();
+        return res.status(201).json(formatUser(updatedUserDoc));
     }
     catch (error) {
+        console.error('Add sold subscription error:', error);
         return res.status(500).json({ message: 'Server error', error });
     }
 });

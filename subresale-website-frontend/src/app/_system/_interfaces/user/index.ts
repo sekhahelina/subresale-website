@@ -9,12 +9,6 @@ export interface UserResponse {
   lastName: string;
   email: string;
   phone: string;
-  selectedCourses: SelectedCourse[],
-  certification: string[];
-}
-
-export interface SelectedCourse {
-  id: string;
-  meta: string;
-  program: string;
+  soldSubscriptions: string[],
+  boughtSubscriptions: string[];
 }

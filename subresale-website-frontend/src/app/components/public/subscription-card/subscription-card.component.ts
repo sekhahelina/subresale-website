@@ -1,7 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {SubscriptionsResponse} from '../../../_system/_interfaces/subscriptions';
-import {Router, RouterLink} from '@angular/router';
-import {SubscriptionDataService} from '../../../_system/_services/subscriptionData/subscription-data.service';
+import { Component, Input } from '@angular/core';
+import { SubscriptionsResponse } from '../../../_system/_interfaces/subscriptions';
+import { Router } from '@angular/router';
+import { SubscriptionDataService } from '../../../_system/_services/subscriptionData/subscription-data.service';
+import { TokenService } from '../../../_system/_services/token/token.service';
+import { SessionService } from '../../../_system/_services/session/session.service';
 
 @Component({
   selector: 'app-subscription-card',
@@ -15,6 +17,8 @@ export class SubscriptionCardComponent {
 
   constructor(
     private router: Router,
+    private tokenService: TokenService,
+    private sessionService: SessionService,
     private subscriptionDataService: SubscriptionDataService,
   ) {}
 
@@ -51,7 +55,14 @@ export class SubscriptionCardComponent {
   }
 
   goToBuy(subscription: SubscriptionsResponse) {
-    this.subscriptionDataService.setSubscription(subscription);
-    this.router.navigate(['/buy']);
+    const token = this.tokenService.token;
+    const isValid = token && !this.tokenService.isTokenExpired(token);
+
+    if (isValid) {
+      this.subscriptionDataService.setSubscription(subscription);
+      this.router.navigate(['/buy']);
+    } else {
+      this.sessionService.show();
+    }
   }
 }

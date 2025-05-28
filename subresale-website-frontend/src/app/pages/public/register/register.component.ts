@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisteredUser, RegisterRequest, RegisterResponse } from '../../../_system/_interfaces/register';
 import { RegisterService } from '../../../_system/_services/register/register.service';
 import { TokenService } from '../../../_system/_services/token/token.service';
+import { UserStateService } from '../../../_system/_services/user-state/user-state.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     private registerService: RegisterService,
+    private userStateService: UserStateService,
   ) {
     this.registerForm = this.formBuilder.group({
       firstName: [
@@ -128,6 +130,8 @@ export class RegisterComponent implements OnInit {
             this.userToken = this.registerResponse.token;
 
             this.tokenService.token = this.userToken;
+
+            this.userStateService.currentUser$.next(this.userData);
 
             this.router.navigate(['']);
             this.registerForm.reset();

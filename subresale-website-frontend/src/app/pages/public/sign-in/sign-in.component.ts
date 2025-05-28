@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignedInUser, SignInRequest, SignInResponse } from '../../../_system/_interfaces/sign-in';
 import { SignInService } from '../../../_system/_services/sign-in/sign-in.service';
 import { TokenService } from '../../../_system/_services/token/token.service';
+import { UserStateService } from '../../../_system/_services/user-state/user-state.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,6 +27,7 @@ export class SignInComponent {
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     private signInService: SignInService,
+    private userStateService: UserStateService,
   ) {
     this.signInForm = this.formBuilder.group({
       email: [
@@ -64,19 +66,25 @@ export class SignInComponent {
     if (this.signInForm.valid) {
       this.signInRequest = this.signInForm.value;
 
-      this.signInService.signIn(this.signInRequest).subscribe(data => {
-        if (data) {
-          this.signInResponse = data;
-          this.isSignInSuccess = true;
+      this.signInService.signIn(this.signInRequest).subscribe({
+        next: (data) => {
+          if (data) {
+            this.signInResponse = data;
+            this.isSignInSuccess = true;
 
-          this.userData = this.signInResponse.user;
-          this.userToken = this.signInResponse.token;
+            this.userData = this.signInResponse.user;
+            this.userToken = this.signInResponse.token;
 
-          this.tokenService.token = this.userToken;
+            this.tokenService.token = this.userToken;
 
-          this.router.navigate(['']);
-          this.signInForm.reset();
-        } else {
+            this.userStateService.currentUser$.next(this.userData);
+
+            this.router.navigate(['']);
+            this.signInForm.reset();
+          }
+        },
+        error: (err) => {
+          console.error('Sign-in error:', err);
           this.isSignInSuccess = false;
 
           this.signInErrorTimeoutId = setTimeout(() => {

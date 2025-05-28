@@ -1,32 +1,39 @@
-<div class="purchase-container">
-  <h2>Підписка: {{ subscription?.title }}</h2>
+<div class="purchase">
+  <div class="purchase__container">
+    <h2 class="purchase__title">Підписка: {{ subscription?.title }}</h2>
 
-  <form class="purchase-form">
-    <label>
-      Ім'я:
-      <input type="text" name="firstName">
-    </label>
-    <label>
-      Прізвище:
-      <input type="text" name="lastName">
-    </label>
-    <label>
-      Пошта:
-      <input type="email" name="email">
-    </label>
-    <label>
-      Назва підписки:
-      <input type="text" [value]="subscription?.title" readonly>
-    </label>
-    <label>
-      Діє до:
-      <input type="text" [value]="getFormattedDate(subscription?.expiresAt)" readonly>
-    </label>
-    <label>
-      Ціна:
-      <input type="text" [value]="subscription?.pricePerMonth + ' ' + getCurrencyWord(subscription?.pricePerMonth)" readonly>
-    </label>
+    <form class="purchase__form" (ngSubmit)="onPurchaseSubmit()">
+      <label class="purchase__label">
+        Ім'я:
+        <input type="text" [value]="user?.firstName" class="purchase__input" readonly />
+      </label>
 
-    <button type="submit">Підтвердити покупку</button>
-  </form>
+      <label class="purchase__label">
+        Прізвище:
+        <input type="text" [value]="user?.lastName" class="purchase__input" readonly />
+      </label>
+
+      <label class="purchase__label">
+        Пошта:
+        <input type="email" [value]="user?.email" class="purchase__input" readonly />
+      </label>
+
+      <label class="purchase__label">
+        Назва підписки:
+        <input type="text" [value]="subscription?.title" class="purchase__input" readonly />
+      </label>
+
+      <label class="purchase__label">
+        Діє до:
+        <input type="text" [value]="getFormattedDate(subscription?.expiresAt)" class="purchase__input" readonly />
+      </label>
+
+      <label class="purchase__label">
+        Ціна:
+        <input type="text" [value]="subscription?.pricePerMonth + ' ' + getCurrencyWord(subscription?.pricePerMonth)" class="purchase__input" readonly />
+      </label>
+
+      <button type="submit" class="purchase__button">Підтвердити покупку</button>
+    </form>
+  </div>
 </div>

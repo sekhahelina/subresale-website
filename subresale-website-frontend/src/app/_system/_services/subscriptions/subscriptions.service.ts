@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SubscriptionsResponse } from '../../_interfaces/subscriptions';
 
+class CreateSubscriptionRequest {
+}
+
 @Injectable({
   providedIn: 'root'
 })

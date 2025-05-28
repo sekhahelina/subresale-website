@@ -25,4 +25,12 @@ export class UsersService {
   updateUserData(id: string, updatedData: Partial<UserResponse>): Observable<UserResponse> {
     return this.http.put<UserResponse>(`${this.api.users}/${id}`, updatedData);
   }
+
+  buySubscription(userId: string, subscriptionId: string): Observable<UserResponse> {
+    return this.http.patch<UserResponse>(`${this.api.users}/${userId}/buy-subscription`, { subscriptionId });
+  }
+
+  addSoldSubscription(userId: string, subscriptionData: any): Observable<UserResponse> {
+    return this.http.patch<UserResponse>(`${this.api.users}/${userId}/add-sold-subscription`, subscriptionData);
+  }
 }

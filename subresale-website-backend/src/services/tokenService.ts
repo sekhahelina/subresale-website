@@ -8,7 +8,7 @@ if (!JWT_SECRET) {
 
 export const generateToken = (userId: string): string => {
     return jwt.sign({ id: userId }, JWT_SECRET, {
-        expiresIn: '10s',
+        expiresIn: '24h',
     });
 };
 

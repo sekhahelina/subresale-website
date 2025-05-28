@@ -1,0 +1,91 @@
+@use "../../../../_system/_styles/_mixins.scss";
+@use "../../../../_system/_styles/_theme-material.scss" as *;
+
+.account__subscriptions {
+  width: 100%;
+  height: 100%;
+  gap: 20px 0;
+  @include mixins.flex(column, flex-start, flex-start);
+
+  &-heading {
+    line-height: 28px;
+    text-align: center;
+    @include mixins.fonts-text($manrope-bold, 24px, $darkgray);
+  }
+
+  &-text {
+    line-height: 22px;
+    @include mixins.fonts-text($manrope-medium, 18px, $darkgray);
+  }
+
+  &-content {
+    gap: 20px 0;
+    width: 100%;
+    height: 100%;
+    @include mixins.flex(column, flex-start, flex-start);
+  }
+
+  @media (max-width: $media-xl) {
+    &-content {
+      height: auto;
+    }
+  }
+
+  @media (max-width: $media-md) {
+    &-heading {
+      line-height: 24px;
+      @include mixins.fonts-text($manrope-bold, 20px, $darkgray);
+    }
+
+    &-text {
+      line-height: 20px;
+      @include mixins.fonts-text($manrope-medium, 16px, $darkgray);
+    }
+
+    &-content {
+      height: auto;
+    }
+  }
+}
+
+.account__subscription {
+  width: 100%;
+  padding: 10px 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  @include mixins.box-style(1px solid $secondary, 10px, $primary);
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 8px;
+    @include mixins.box-style(1px solid $white, 10px, $white);
+  }
+
+  &-title {
+    @include mixins.fonts-text($manrope-bold, 16px, $darkgray);
+  }
+
+  &-name {
+    @include mixins.fonts-text($manrope-regular, 14px, $darkgray);
+  }
+
+  @media (max-width: $media-md) {
+    grid-template-columns: 1fr;
+    gap: 10px 0;
+
+    &-item {
+      padding: 5px 4px;
+    }
+
+    &-title {
+      @include mixins.fonts-text($manrope-bold, 14px, $darkgray);
+    }
+
+    &-name {
+      @include mixins.fonts-text($manrope-regular, 12px, $darkgray);
+    }
+  }
+}

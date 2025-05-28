@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
 
   loadLatestSubscriptions() {
     this.subscriptionsService.getLatestSubscriptionsByCategories().subscribe((data) => {
-      console.log(data);
       this.subscriptionList = data;
     })
   }
