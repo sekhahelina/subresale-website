@@ -14,5 +14,6 @@ export interface SubscriptionsResponse {
   pricePerMonth: number,
   expiresAt: string,
   image: string,
-  description: string
+  description: string,
+  isSold: boolean;
 }

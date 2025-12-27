@@ -157,5 +157,54 @@ router.patch('/:id/add-sold-subscription', async (req: Request, res: Response) =
         return res.status(500).json({ message: 'Server error', error });
     }
 });
+router.delete('/sold/:subId', async (req: Request, res: Response) => {
+    const { subId } = req.params;
+    const userIdFromToken = (req as any).userId; // з authMiddleware
+
+    try {
+        const userRef = usersCollection.doc(userIdFromToken);
+        const subRef = subscriptionsCollection.doc(subId);
+
+        const [userSnap, subSnap] = await Promise.all([
+            userRef.get(),
+            subRef.get()
+        ]);
+
+        // 1️⃣ Перевірка користувача
+        if (!userSnap.exists) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // 2️⃣ Перевірка підписки
+        if (!subSnap.exists) {
+            return res.status(404).json({ message: 'Subscription not found' });
+        }
+
+       const userData = userSnap.data() as Record<string, any>;
+
+const soldSubscriptions = Array.isArray(userData['soldSubscriptions'])
+    ? userData['soldSubscriptions']
+    : [];
+
+        // 3️⃣ Перевірка, що підписка належить користувачу
+        if (!soldSubscriptions.includes(subId)) {
+            return res.status(403).json({ message: 'You cannot delete this subscription' });
+        }
+
+        // 4️⃣ Видаляємо ID з користувача
+        await userRef.update({
+            soldSubscriptions: admin.firestore.FieldValue.arrayRemove(subId)
+        });
+
+        // 5️⃣ Видаляємо саму підписку
+        await subRef.delete();
+
+        return res.status(200).json({ message: 'Оголошення видалено' });
+
+    } catch (error) {
+        console.error('Delete sold subscription error:', error);
+        return res.status(500).json({ message: 'Server error' });
+    }
+});
 
 export default router;

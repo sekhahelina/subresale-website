@@ -52,8 +52,10 @@
   width: 100%;
   padding: 10px 8px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  // 3 колонки ділять простір, 4-та (кнопка або статус) займає мінімум місця
+  grid-template-columns: repeat(3, 1fr) auto; 
   gap: 18px;
+  align-items: center; 
   @include mixins.box-style(1px solid $secondary, 10px, $primary);
 
   &-item {
@@ -61,7 +63,19 @@
     flex-direction: column;
     gap: 6px;
     padding: 10px 8px;
+    height: 100%; 
     @include mixins.box-style(1px solid $white, 10px, $white);
+
+    // Блок з кнопкою або статусом: прозорий, компактний та центрований
+    &:last-child {
+      background: transparent; 
+      border: none;            
+      box-shadow: none;        
+      padding: 0;              
+      justify-content: center; 
+      align-items: center;     
+      min-width: 140px;        
+    }
   }
 
   &-title {
@@ -72,12 +86,50 @@
     @include mixins.fonts-text($manrope-regular, 14px, $darkgray);
   }
 
+  .delete-btn {
+    width: 100%;
+    cursor: pointer;
+    padding: 10px 16px;
+    border: 1px solid #ff4d4f; 
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    // Використання системного міксину для шрифту
+    @include mixins.fonts-text($manrope-bold, 14px, #ff4d4f);
+
+    &:hover {
+      background: #ff4d4f;
+      @include mixins.fonts-text($manrope-bold, 14px, $white);
+    }
+  }
+
+  .sold-label {
+    @include mixins.fonts-text($manrope-bold, 14px, #52c41a); // Зелений колір статус "Продано"
+    padding: 10px 16px;
+    background: rgba(82, 196, 26, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #52c41a;
+    white-space: nowrap;
+  }
+
   @media (max-width: $media-md) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
     gap: 10px 0;
 
     &-item {
       padding: 5px 4px;
+      height: auto;
+
+      &:last-child {
+        min-width: 100%;
+        padding: 10px 0;
+        background: transparent;
+      }
     }
 
     &-title {

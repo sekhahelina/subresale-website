@@ -1,8 +1,9 @@
 <div class="account__subscriptions">
-  <h2 class="account__subscriptions-heading">Продані підписки</h2>
+  <h2 class="account__subscriptions-heading">Мої оголошення</h2>
 
   <div class="account__subscriptions-content" *ngIf="soldSubscriptionsData && soldSubscriptionsData.length > 0">
     <div class="account__subscription" *ngFor="let subscription of soldSubscriptionsData">
+      
       <div class="account__subscription-item">
         <p class="account__subscription-title">Підписка</p>
         <p class="account__subscription-name">{{ subscription.title }}</p>
@@ -17,8 +18,23 @@
         <p class="account__subscription-title">Діє до:</p>
         <p class="account__subscription-name">{{ subscription.expiresAt }}</p>
       </div>
-    </div>
+
+      <div class="account__subscription-item">
+        <ng-container *ngIf="!subscription.isSold; else soldTemplate">
+          <button class="delete-btn" (click)="deleteSubscription(subscription.id)">
+            Видалити
+          </button>
+        </ng-container>
+
+        <ng-template #soldTemplate>
+          <span class="sold-label">Продано</span>
+        </ng-template>
+      </div>
+
+    </div> 
   </div>
 
-  <p class="account__subscriptions-text" *ngIf="userData?.boughtSubscriptions?.length === 0">На жаль, ти ще не маєш проданих підписок</p>
+  <p class="account__subscriptions-text" *ngIf="userData && (!userData.soldSubscriptions || userData.soldSubscriptions.length === 0)">
+    На жаль, ти ще не маєш проданих підписок
+  </p>
 </div>
