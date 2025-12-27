@@ -4,7 +4,7 @@
       <h3 class="card__subscription">{{ subscription.title }}</h3>
       <p class="card__price">
         Вартість:
-        <span  class="card__price-date">
+        <span class="card__price-date">
           {{ subscription.pricePerMonth }}
           {{ getCurrencyWord(subscription.pricePerMonth) }}
         </span>
@@ -26,5 +26,10 @@
     <p class="card__description-text">{{ subscription.description }}</p>
   </div>
 
-  <button class="card__button">Купити</button>
+  <button 
+    class="card__button" 
+    [style.opacity]="user?.soldSubscriptions?.includes(subscription.id) ? '0.5' : '1'"
+    [style.cursor]="user?.soldSubscriptions?.includes(subscription.id) ? 'not-allowed' : 'pointer'">
+    {{ user?.soldSubscriptions?.includes(subscription.id) ? 'Ваша підписка' : 'Купити' }}
+  </button>
 </div>
