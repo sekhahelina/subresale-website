@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { comparePassword } from '../services/hashService';
 import { generateToken } from '../services/tokenService';
-import { db } from '../index'; // ⬅️ імпорт з index.ts
+import { db } from '../index'; 
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -138,14 +138,14 @@ router.patch('/:id/add-sold-subscription', async (req: Request, res: Response) =
             description,
             expiresAt,
             image,
-            pricePerMonth: pricePerMonth.toString(), // Зберігаємо як рядок (як у твоєму прикладі)
+            pricePerMonth: pricePerMonth.toString(), 
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
             isSold: false
         };
 
         const newSubRef = await subscriptionsCollection.add(newSubscription);
 
-        // Додаємо ID нової підписки у soldSubscriptions користувача
+       
         await userRef.update({
             soldSubscriptions: admin.firestore.FieldValue.arrayUnion(newSubRef.id)
         });
@@ -159,7 +159,7 @@ router.patch('/:id/add-sold-subscription', async (req: Request, res: Response) =
 });
 router.delete('/sold/:subId', async (req: Request, res: Response) => {
     const { subId } = req.params;
-    const userIdFromToken = (req as any).userId; // з authMiddleware
+    const userIdFromToken = (req as any).userId; 
 
     try {
         const userRef = usersCollection.doc(userIdFromToken);
@@ -170,12 +170,12 @@ router.delete('/sold/:subId', async (req: Request, res: Response) => {
             subRef.get()
         ]);
 
-        // 1️⃣ Перевірка користувача
+        
         if (!userSnap.exists) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // 2️⃣ Перевірка підписки
+        
         if (!subSnap.exists) {
             return res.status(404).json({ message: 'Subscription not found' });
         }
@@ -186,17 +186,17 @@ const soldSubscriptions = Array.isArray(userData['soldSubscriptions'])
     ? userData['soldSubscriptions']
     : [];
 
-        // 3️⃣ Перевірка, що підписка належить користувачу
+        
         if (!soldSubscriptions.includes(subId)) {
             return res.status(403).json({ message: 'You cannot delete this subscription' });
         }
 
-        // 4️⃣ Видаляємо ID з користувача
+       
         await userRef.update({
             soldSubscriptions: admin.firestore.FieldValue.arrayRemove(subId)
         });
 
-        // 5️⃣ Видаляємо саму підписку
+        
         await subRef.delete();
 
         return res.status(200).json({ message: 'Оголошення видалено' });

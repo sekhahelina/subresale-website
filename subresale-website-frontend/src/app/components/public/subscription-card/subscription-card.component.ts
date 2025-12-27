@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { SubscriptionDataService } from '../../../_system/_services/subscriptionData/subscription-data.service';
 import { TokenService } from '../../../_system/_services/token/token.service';
 import { SessionService } from '../../../_system/_services/session/session.service';
-import { UserStateService } from '../../../_system/_services/user-state/user-state.service'; // Додано
-import { UserResponse } from '../../../_system/_interfaces/user'; // Додано
+import { UserStateService } from '../../../_system/_services/user-state/user-state.service'; 
+import { UserResponse } from '../../../_system/_interfaces/user'; 
 
 @Component({
   selector: 'app-subscription-card',
@@ -16,18 +16,18 @@ import { UserResponse } from '../../../_system/_interfaces/user'; // Додан�
 })
 export class SubscriptionCardComponent implements OnInit {
   @Input() subscription!: SubscriptionsResponse;
-  public user?: UserResponse; // Змінна для зберігання даних користувача
+  public user?: UserResponse; 
 
   constructor(
     private router: Router,
     private tokenService: TokenService,
     private sessionService: SessionService,
     private subscriptionDataService: SubscriptionDataService,
-    private userStateService: UserStateService // Додано
+    private userStateService: UserStateService 
   ) {}
 
   ngOnInit() {
-    // Завантажуємо дані користувача, щоб знати, які підписки він продає
+    // Отримуємо ID користувача з токена та завантажуємо дані профілю
     const userId = this.tokenService.getUserIdFromToken();
     if (userId) {
       this.userStateService.loadUserById(userId).subscribe({
@@ -57,5 +57,22 @@ export class SubscriptionCardComponent implements OnInit {
   goToBuy(subscription: SubscriptionsResponse) {
     const token = this.tokenService.token;
     const isValid = token && !this.tokenService.isTokenExpired(token);
+
+    // Додано перевірку: чи не належить ця підписка поточному користувачу
+    const isOwnSubscription = this.user?.soldSubscriptions?.includes(subscription.id);
+
+    if (isOwnSubscription) {
+      alert('Ви не можете купити власне оголошення');
+      return;
+    }
+
+    if (isValid) {
+      // Відновлено логіку переходу
+      this.subscriptionDataService.setSubscription(subscription);
+      this.router.navigate(['/buy']);
+    } else {
+      // Якщо не авторизований — показуємо форму логіну
+      this.sessionService.show();
+    }
   }
 }
