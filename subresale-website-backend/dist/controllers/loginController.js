@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const hashService_1 = require("../services/hashService");
 const tokenService_1 = require("../services/tokenService");
-const index_1 = require("../index"); 
+const index_1 = require("../index");
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;

@@ -114,12 +114,11 @@ router.patch('/:id/add-sold-subscription', async (req, res) => {
             description,
             expiresAt,
             image,
-            pricePerMonth: pricePerMonth.toString(), 
+            pricePerMonth: pricePerMonth.toString(),
             createdAt: firebase_admin_1.default.firestore.FieldValue.serverTimestamp(),
             isSold: false
         };
         const newSubRef = await subscriptionsCollection.add(newSubscription);
-        
         await userRef.update({
             soldSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayUnion(newSubRef.id)
         });
@@ -133,7 +132,7 @@ router.patch('/:id/add-sold-subscription', async (req, res) => {
 });
 router.delete('/sold/:subId', async (req, res) => {
     const { subId } = req.params;
-    const userIdFromToken = req.userId; 
+    const userIdFromToken = req.userId;
     try {
         const userRef = usersCollection.doc(userIdFromToken);
         const subRef = subscriptionsCollection.doc(subId);
@@ -141,11 +140,9 @@ router.delete('/sold/:subId', async (req, res) => {
             userRef.get(),
             subRef.get()
         ]);
-       
         if (!userSnap.exists) {
             return res.status(404).json({ message: 'User not found' });
         }
-        
         if (!subSnap.exists) {
             return res.status(404).json({ message: 'Subscription not found' });
         }
@@ -153,15 +150,12 @@ router.delete('/sold/:subId', async (req, res) => {
         const soldSubscriptions = Array.isArray(userData['soldSubscriptions'])
             ? userData['soldSubscriptions']
             : [];
-        
         if (!soldSubscriptions.includes(subId)) {
             return res.status(403).json({ message: 'You cannot delete this subscription' });
         }
-        
         await userRef.update({
             soldSubscriptions: firebase_admin_1.default.firestore.FieldValue.arrayRemove(subId)
         });
-        
         await subRef.delete();
         return res.status(200).json({ message: 'Оголошення видалено' });
     }
